@@ -1,5 +1,7 @@
-package com.assignment.warehouse;
+package com.assignment.warehouse.repository;
 
+import com.assignment.warehouse.JsonReader;
+import com.assignment.warehouse.ReadFileException;
 import com.assignment.warehouse.infra.product.Article;
 import com.assignment.warehouse.infra.product.Product;
 import com.assignment.warehouse.infra.product.Products;
@@ -10,17 +12,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductsRepositoryTest {
 
     public static final String NAME = "name";
+    public static final String PRODUCTS_JSON = "products.json";
+
     @Mock
     JsonReader fileReader;
 
@@ -29,19 +32,22 @@ public class ProductsRepositoryTest {
 
     @Test
     void emptyProductsList() throws ReadFileException {
-        given(fileReader.deserializeTo("products.json", Products.class)).willReturn(productsEmptyList());
+        given(fileReader.deserializeTo(PRODUCTS_JSON, Products.class)).willReturn(productsEmptyList());
+
         assertEquals(0, repository.getProducts().get().getProducts().size());
     }
 
     @Test
     void emptyProductsListWhenThrownException() throws ReadFileException {
-        given(fileReader.deserializeTo("products.json", Products.class)).willThrow(ReadFileException.class);
+        given(fileReader.deserializeTo(PRODUCTS_JSON, Products.class)).willThrow(ReadFileException.class);
+
         assertEquals(Optional.empty(), repository.getProducts());
     }
 
     @Test
     void getsProducts() throws ReadFileException {
-        given(fileReader.deserializeTo("products.json", Products.class)).willReturn(productsList());
+        given(fileReader.deserializeTo(PRODUCTS_JSON, Products.class)).willReturn(productsList());
+
         assertEquals(NAME, repository.getProducts().get().getProducts().get(0).getName());
     }
 
