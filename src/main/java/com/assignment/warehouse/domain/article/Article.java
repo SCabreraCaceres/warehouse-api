@@ -1,16 +1,12 @@
-package com.assignment.warehouse.infra.inventory;
+package com.assignment.warehouse.domain.article;
 
-import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class Article {
-    @SerializedName("art_id")
     private Integer artId;
-
     private String name;
-
     private Integer stock;
 }

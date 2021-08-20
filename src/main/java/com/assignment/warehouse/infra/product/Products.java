@@ -8,5 +8,5 @@ import java.util.List;
 @Getter
 @Setter
 public class Products {
-    private List<Product> products;
+    private List<ProductDTO> products;
 }

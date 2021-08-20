@@ -2,8 +2,8 @@ package com.assignment.warehouse.repository;
 
 import com.assignment.warehouse.JsonReader;
 import com.assignment.warehouse.ReadFileException;
-import com.assignment.warehouse.infra.product.Article;
-import com.assignment.warehouse.infra.product.Product;
+import com.assignment.warehouse.infra.product.ProductArticleDTO;
+import com.assignment.warehouse.infra.product.ProductDTO;
 import com.assignment.warehouse.infra.product.Products;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,8 +21,8 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class ProductsRepositoryTest {
 
-    public static final String NAME = "name";
-    public static final String PRODUCTS_JSON = "products.json";
+    private static final String NAME = "name";
+    private static final String PRODUCTS_JSON = "products.json";
 
     @Mock
     JsonReader fileReader;
@@ -53,7 +53,7 @@ public class ProductsRepositoryTest {
 
     private Products productsEmptyList() {
         Products products = new Products();
-        List<Product> productsList = new ArrayList<>();
+        List<ProductDTO> productsList = new ArrayList<>();
 
         products.setProducts(productsList);
 
@@ -62,11 +62,11 @@ public class ProductsRepositoryTest {
 
     private Products productsList() {
         Products products = new Products();
-        List<Product> productsList = new ArrayList<>();
-        Product product = new Product();
+        List<ProductDTO> productsList = new ArrayList<>();
+        ProductDTO product = new ProductDTO();
 
         product.setName(NAME);
-        product.setContainArticles(List.of(new Article()));
+        product.setContainArticles(List.of(new ProductArticleDTO()));
 
         productsList.add(product);
         products.setProducts(productsList);

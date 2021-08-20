@@ -8,9 +8,9 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Product {
+public class ProductDTO {
     private String name;
 
     @SerializedName("contain_articles")
-    public List<Article> containArticles;
+    public List<ProductArticleDTO> containArticles;
 }

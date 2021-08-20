@@ -4,11 +4,13 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
-@Getter
 @Setter
-public class Inventory {
-    @SerializedName("inventory")
-    List<ArticleDTO> articleDTOS;
+@Getter
+public class ArticleDTO {
+    @SerializedName("art_id")
+    private Integer artId;
+
+    private String name;
+
+    private Integer stock;
 }

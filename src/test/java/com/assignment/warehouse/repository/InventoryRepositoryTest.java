@@ -2,7 +2,7 @@ package com.assignment.warehouse.repository;
 
 import com.assignment.warehouse.JsonReader;
 import com.assignment.warehouse.ReadFileException;
-import com.assignment.warehouse.infra.inventory.Article;
+import com.assignment.warehouse.infra.inventory.ArticleDTO;
 import com.assignment.warehouse.infra.inventory.Inventory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +35,7 @@ public class InventoryRepositoryTest {
     void emptyInventoryList() throws ReadFileException {
         given(fileReader.deserializeTo(INVENTORY_JSON, Inventory.class)).willReturn(inventoryEmptyList());
 
-        assertEquals(0, repository.getInventory().get().getArticles().size());
+        assertEquals(0, repository.getInventory().get().getArticleDTOS().size());
     }
 
 
@@ -50,33 +50,33 @@ public class InventoryRepositoryTest {
     void getsInventory() throws ReadFileException {
         given(fileReader.deserializeTo(INVENTORY_JSON, Inventory.class)).willReturn(articlesList());
 
-        List<Article> articles = repository.getInventory().get().getArticles();
+        List<ArticleDTO> articleDTOS = repository.getInventory().get().getArticleDTOS();
 
-        assertEquals(ART_ID, articles.get(0).getArtId());
-        assertEquals(NAME, articles.get(0).getName());
-        assertEquals(STOCK, articles.get(0).getStock());
+        assertEquals(ART_ID, articleDTOS.get(0).getArtId());
+        assertEquals(NAME, articleDTOS.get(0).getName());
+        assertEquals(STOCK, articleDTOS.get(0).getStock());
     }
 
     private Inventory articlesList() {
         Inventory inventory = new Inventory();
-        List<Article> articlesList = new ArrayList<>();
-        Article article = new Article();
+        List<ArticleDTO> articlesList = new ArrayList<>();
+        ArticleDTO articleDTO = new ArticleDTO();
 
-        article.setArtId(ART_ID);
-        article.setName(NAME);
-        article.setStock(STOCK);
+        articleDTO.setArtId(ART_ID);
+        articleDTO.setName(NAME);
+        articleDTO.setStock(STOCK);
 
-        articlesList.add(article);
-        inventory.setArticles(articlesList);
+        articlesList.add(articleDTO);
+        inventory.setArticleDTOS(articlesList);
 
         return inventory;
     }
 
     private Inventory inventoryEmptyList() {
         Inventory inventory = new Inventory();
-        List<Article> articleList = new ArrayList<>();
+        List<ArticleDTO> articleDTOList = new ArrayList<>();
 
-        inventory.setArticles(articleList);
+        inventory.setArticleDTOS(articleDTOList);
 
         return inventory;
     }

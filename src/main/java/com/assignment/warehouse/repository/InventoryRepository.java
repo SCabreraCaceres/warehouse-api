@@ -14,12 +14,12 @@ public class InventoryRepository {
 
     private static final String INVENTORY_JSON = "inventory.json";
 
-    private final JsonReader readFile;
+    private final JsonReader jsonReader;
 
     public Optional<Inventory> getInventory() {
         Inventory inventory;
         try {
-            inventory = readFile.deserializeTo(INVENTORY_JSON, Inventory.class);
+            inventory = jsonReader.deserializeTo(INVENTORY_JSON, Inventory.class);
         } catch (ReadFileException e) {
             return Optional.empty();
         }

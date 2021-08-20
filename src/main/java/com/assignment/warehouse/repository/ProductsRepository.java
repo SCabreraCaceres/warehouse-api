@@ -14,12 +14,12 @@ public class ProductsRepository {
 
     private static final String PRODUCTS_JSON = "products.json";
 
-    private final JsonReader readFile;
+    private final JsonReader jsonReader;
 
     public Optional<Products> getProducts() {
         Products products;
         try {
-            products = readFile.deserializeTo(PRODUCTS_JSON, Products.class);
+            products = jsonReader.deserializeTo(PRODUCTS_JSON, Products.class);
         } catch (ReadFileException e) {
             return Optional.empty();
         }

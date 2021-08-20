@@ -1,14 +1,12 @@
 package com.assignment.warehouse;
 
 import com.google.gson.Gson;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.BufferedReader;
 import java.io.File;
 
 import static java.nio.file.Files.newBufferedReader;
 
-@Configuration
 public class JsonReader {
 
     public <T> T deserializeTo(String fileName, Class<T> classOf) throws ReadFileException {

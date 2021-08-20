@@ -2,9 +2,11 @@ package com.assignment.warehouse.infra.product;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class Article {
+@Setter
+public class ProductArticleDTO {
 
     @SerializedName("art_id")
     private Integer artId;
