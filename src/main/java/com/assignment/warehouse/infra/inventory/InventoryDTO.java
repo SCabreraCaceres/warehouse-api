@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Inventory {
+public class InventoryDTO {
     @SerializedName("inventory")
-    List<ArticleDTO> articleDTOS;
+    List<ArticleDTO> articles;
 }

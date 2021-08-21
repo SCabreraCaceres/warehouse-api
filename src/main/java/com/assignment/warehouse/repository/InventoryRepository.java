@@ -2,7 +2,8 @@ package com.assignment.warehouse.repository;
 
 import com.assignment.warehouse.JsonReader;
 import com.assignment.warehouse.ReadFileException;
-import com.assignment.warehouse.infra.inventory.Inventory;
+import com.assignment.warehouse.infra.inventory.ArticleDTO;
+import com.assignment.warehouse.infra.inventory.InventoryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,13 +17,22 @@ public class InventoryRepository {
 
     private final JsonReader jsonReader;
 
-    public Optional<Inventory> getInventory() {
-        Inventory inventory;
+    public ArticleDTO getInventoryByArtId(Integer artId) {
+        return getInventory().get().getArticles()
+                .stream().filter(
+                        articleDTO -> articleDTO.getArtId().equals(artId)
+                )
+                .findFirst().get();
+    }
+
+    // TODO Refactor, make private
+    public Optional<InventoryDTO> getInventory() {
+        InventoryDTO inventoryDTO;
         try {
-            inventory = jsonReader.deserializeTo(INVENTORY_JSON, Inventory.class);
+            inventoryDTO = jsonReader.deserializeTo(INVENTORY_JSON, InventoryDTO.class);
         } catch (ReadFileException e) {
             return Optional.empty();
         }
-        return Optional.ofNullable(inventory);
+        return Optional.ofNullable(inventoryDTO);
     }
 }

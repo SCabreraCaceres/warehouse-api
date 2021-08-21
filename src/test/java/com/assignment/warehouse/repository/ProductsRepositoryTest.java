@@ -4,7 +4,7 @@ import com.assignment.warehouse.JsonReader;
 import com.assignment.warehouse.ReadFileException;
 import com.assignment.warehouse.infra.product.ProductArticleDTO;
 import com.assignment.warehouse.infra.product.ProductDTO;
-import com.assignment.warehouse.infra.product.Products;
+import com.assignment.warehouse.infra.product.ProductsDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,27 +32,27 @@ public class ProductsRepositoryTest {
 
     @Test
     void emptyProductsList() throws ReadFileException {
-        given(fileReader.deserializeTo(PRODUCTS_JSON, Products.class)).willReturn(productsEmptyList());
+        given(fileReader.deserializeTo(PRODUCTS_JSON, ProductsDTO.class)).willReturn(productsEmptyList());
 
         assertEquals(0, repository.getProducts().get().getProducts().size());
     }
 
     @Test
     void emptyProductsListWhenThrownException() throws ReadFileException {
-        given(fileReader.deserializeTo(PRODUCTS_JSON, Products.class)).willThrow(ReadFileException.class);
+        given(fileReader.deserializeTo(PRODUCTS_JSON, ProductsDTO.class)).willThrow(ReadFileException.class);
 
         assertEquals(Optional.empty(), repository.getProducts());
     }
 
     @Test
     void getsProducts() throws ReadFileException {
-        given(fileReader.deserializeTo(PRODUCTS_JSON, Products.class)).willReturn(productsList());
+        given(fileReader.deserializeTo(PRODUCTS_JSON, ProductsDTO.class)).willReturn(productsList());
 
         assertEquals(NAME, repository.getProducts().get().getProducts().get(0).getName());
     }
 
-    private Products productsEmptyList() {
-        Products products = new Products();
+    private ProductsDTO productsEmptyList() {
+        ProductsDTO products = new ProductsDTO();
         List<ProductDTO> productsList = new ArrayList<>();
 
         products.setProducts(productsList);
@@ -60,8 +60,8 @@ public class ProductsRepositoryTest {
         return products;
     }
 
-    private Products productsList() {
-        Products products = new Products();
+    private ProductsDTO productsList() {
+        ProductsDTO products = new ProductsDTO();
         List<ProductDTO> productsList = new ArrayList<>();
         ProductDTO product = new ProductDTO();
 

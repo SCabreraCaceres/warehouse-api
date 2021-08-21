@@ -2,7 +2,7 @@ package com.assignment.warehouse.repository;
 
 import com.assignment.warehouse.JsonReader;
 import com.assignment.warehouse.ReadFileException;
-import com.assignment.warehouse.infra.product.Products;
+import com.assignment.warehouse.infra.product.ProductsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +16,10 @@ public class ProductsRepository {
 
     private final JsonReader jsonReader;
 
-    public Optional<Products> getProducts() {
-        Products products;
+    public Optional<ProductsDTO> getProducts() {
+        ProductsDTO products;
         try {
-            products = jsonReader.deserializeTo(PRODUCTS_JSON, Products.class);
+            products = jsonReader.deserializeTo(PRODUCTS_JSON, ProductsDTO.class);
         } catch (ReadFileException e) {
             return Optional.empty();
         }
