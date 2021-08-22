@@ -1,52 +1,30 @@
 package com.assignment.warehouse;
 
-import com.assignment.warehouse.domain.product.Product;
-import com.assignment.warehouse.infra.inventory.ArticleDTO;
-import com.assignment.warehouse.infra.inventory.InventoryDTO;
-import com.assignment.warehouse.repository.InventoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@SpringBootTest(classes = WarehouseApplication.class)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 class WarehouseApplicationIT {
 
 	@Autowired
-	private InventoryRepository inventoryRepository;
-
-	@Autowired
-	private ProductsService productsService;
-
+	TestRestTemplate client;
 
 	@Test
-	void getsInventory() {
-		Optional<InventoryDTO> inventory = inventoryRepository.getInventory();
+	void endpointReturnsWeatherInfo() {
+		ResponseEntity<List> entity = client.getForEntity("/v1/warehouse/products", List.class);
 
-		assertEquals(4, inventory.get().getArticles().size());
-		ArticleDTO articleDTO = inventory.get().getArticles().get(0);
-		assertEquals(1, articleDTO.getArtId());
-		assertEquals("leg", articleDTO.getName());
-		assertEquals(12, articleDTO.getStock());
-	}
-
-	@Test
-	void serviceGetsProductsList() {
-		List<Product> products = productsService.getProducts();
-
-		assertEquals(2, products.size());
-
-		Product product = products.get(0);
-		assertEquals("Dining Chair", product.getName());
-		assertEquals(2, product.getQuantity());
-
-		Product product2 = products.get(1);
-		assertEquals("Dining Table", product2.getName());
-		assertEquals(1, product2.getQuantity());
+		assertEquals(HttpStatus.OK, entity.getStatusCode());
+		assertNotNull(entity.getBody());
 	}
 
 

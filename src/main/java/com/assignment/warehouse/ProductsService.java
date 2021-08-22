@@ -35,7 +35,6 @@ public class ProductsService {
                                 return articleDTO.getStock() / productArticleDTO.getAmountOf();
                             }
                     )
-                    .filter(availableStock -> availableStock > 0)
                     .min((o1, o2) -> o1).orElse(0);
 
             Product product = productMapper.toProduct(productDTO);
