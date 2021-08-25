@@ -26,7 +26,6 @@ import static org.mockito.BDDMockito.given;
 public class ProductsServiceTest {
 
     public static final Integer ID = 1;
-    public static final Integer ID2 = 2;
     public static final Integer AMOUNT = 1;
     public static final String NAME = "name";
 
@@ -58,7 +57,7 @@ public class ProductsServiceTest {
         articleDTO2.setStock(17);
         ArticleDTO articleDTO3 = new ArticleDTO();
         articleDTO3.setArtId(3);
-        articleDTO3.setStock(2);
+        articleDTO3.setStock(3);
 
         given(productRepository.getProducts()).willReturn(Optional.of(productsList()));
         given(inventoryRepository.getInventoryByArtId(1)).willReturn(articleDTO1);

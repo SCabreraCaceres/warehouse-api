@@ -29,13 +29,13 @@ public class ProductsService {
         List<Product> productList = new ArrayList<>();
         for (ProductDTO productDTO : productsDTO) {
             Integer quantity = productDTO.getContainArticles().stream()
-                    .map(productArticleDTO -> {
+                    .mapToInt(productArticleDTO -> {
                                 ArticleDTO articleDTO =
                                         inventoryRepository.getInventoryByArtId(productArticleDTO.getArtId());
                                 return articleDTO.getStock() / productArticleDTO.getAmountOf();
                             }
                     )
-                    .min((o1, o2) -> o1).orElse(0);
+                    .min().orElse(0);
 
             Product product = productMapper.toProduct(productDTO);
             product.setQuantity(quantity);
